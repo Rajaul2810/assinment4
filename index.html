@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curise Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Cruise Queen</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Book Ocean Time</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="firstClass" class="inp-style inp-width" type="number" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                 <button onclick="handleSeat('first' ,true);" id="btnPlus" class="btn">+</button>
+                 <button onclick="handleSeat( 'first',false);" id="btnMinus" class="btn">-</button>
+                </div>
+            </div>
+            
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id="scoundClass" class="inp-style inp-width" type="number" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <button onclick=" handleSeat('scound' ,true);" id="plusBtn" class="btn">+</button>
+                    <button onclick=" handleSeat('scound' ,false);" id="minusBtn" class="btn">-</button>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="totalPrice">$00</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax-amount">$00</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="finalAmount">$00</p>
+                    </div>
+                </div>
+            </div>
+            <button id="submit" class="btn-style">Book Now</button>
+        </div>
+    </main>
+
+      <script>
+          function handleSeat(className,isIncrease){
+            const numberOfClick = document.getElementById(className +"Class");
+              const numberOfSeat = parseInt(numberOfClick.value);
+              let totalSeat = numberOfSeat;
+              if(isIncrease == false && numberOfSeat>0){
+                totalSeat = numberOfSeat - 1;
+              }
+              if(isIncrease == true){
+                totalSeat = numberOfSeat + 1; 
+              }
+              numberOfClick.value = totalSeat;
+              document.getElementById(className +"Class").value = totalSeat;
+              totalPrice();
+          }
+          function totalPrice(){
+              const firstClass = document.getElementById("firstClass");
+              const classNumber = parseInt(firstClass.value);
+
+              const scoundClass = document.getElementById("scoundClass");
+              const classNumber2 = parseInt(scoundClass.value);
+
+              const totalPrice = classNumber*150 + classNumber2*100;
+              document.getElementById('totalPrice').innerText = '$'+ totalPrice;
+
+              const tax = Math.round(totalPrice*0.1);
+              document.getElementById("tax-amount").innerText = '$'+ tax;
+
+              const finalAmount = totalPrice + tax;
+              document.getElementById("finalAmount").innerText = '$'+ finalAmount;
+              const submitBtn = finalAmount;
+              return finalAmount;
+          }
+          document.getElementById("submit").addEventListener("click",function(){
+              const submit = totalPrice();
+              if(submit<=0){
+                  alert("SOrry.. You Do not Select any Seat.Please select any seat and try again.. ");
+              }
+              else{
+                  alert("Congratulations!.. You Successfully created your booking");
+              }
+          })
+
+      </script>
+    <!--Thank You-->
+</body>
+
+</html>
